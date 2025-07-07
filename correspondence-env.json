@@ -1,0 +1,34 @@
+{
+  "id": "correspondence-env",
+  "name": "Correspondence Environment",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "https://api-correspondence.sprint.autonomize.dev",
+      "enabled": true
+    },
+    {
+      "key": "clientId",
+      "value": "0",
+      "enabled": true
+    },
+    {
+      "key": "copilotId",
+      "value": "683554429fe9ea57eec4ed1e",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ4c21aOV9SbEMwOVY2UEdKS3I5MVdaU0dyUU1qSW5WcERhWFU1YjBQLVFNIn0.eyJleHAiOjE3NTQzOTA0ODIsImlhdCI6MTc1MTg4NDg4MiwiYXV0aF90aW1lIjoxNzUxODg0ODgwLCJqdGkiOiI4ZTY2OTMxZC0zODcyLTQ0N2YtOTQxNC1iNjExMTI5ZWY3MDEiLCJpc3MiOiJodHRwczovL2dlbmVzaXMuZGV2LXYyLnBsYXRmb3JtLmF1dG9ub21pemUuZGV2L2dlbmVzaXMtcGxhdGZvcm0vYXV0aC9yZWFsbXMvYXV0b25vbWl6ZSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NTlkMGU5NC02MDk3LTQwODktYmIyMi0zNzk0ZTdiZGI1NjQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjb3JyZXNwb25kZW5jZS1hdXRvbWF0aW9uLWNvcGlsb3QtZmUiLCJub25jZSI6IjI0NmJjMTUzLTZhMzMtNDhmZC1hYTczLWNhMmY1ZjA0ZmVjNSIsInNlc3Npb25fc3RhdGUiOiI5M2Q5NDdkOC1jZTRmLTQ5MzItODI4Mi05ZjFiMjJlNzA0NWMiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbIioiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1vdHAtcm9sZSIsInVtYV9hdXRob3JpemF0aW9uIiwiZGVmYXVsdC1yb2xlcy1iYXNlIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInNpZCI6IjkzZDk0N2Q4LWNlNGYtNDkzMi04MjgyLTlmMWIyMmU3MDQ1YyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiU2FwbmEgQmhhdHQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJzYXBuYS5iaGF0dEBhdXRvbm9taXplLmFpIiwiZ2l2ZW5fbmFtZSI6IlNhcG5hIiwiZmFtaWx5X25hbWUiOiJCaGF0dCIsImVtYWlsIjoic2FwbmEuYmhhdHRAYXV0b25vbWl6ZS5haSJ9.MwRbb37X5JSaCPpXIiz8X51cNqbRDiHeoJXsmVKsghE3hAwRyWQfbNsiUZj2Qf2nPYhENUAf-di3yw2LLx4cNKZoWOnEL5qTi7-nO6ISJFsPPMPCezHCU4mcguxw9AwyimvK8b-r8wjHx3wgAku1ojO-gsLAsyBz4PZDVFvF5FfN_dcZj4W_xuNz_yGlwpDvqslvEQDK1hc5p2jCsnfpBBHq6dEwpo-kQdCL6nEXu76GoLAgLkiwYD3k-o_53Uh6RyPfq2u5-3qzOhWgdjDchMoEyZK1Fq1Emb-3DYPgMpJ-1UQVe1rE4cz0TX0ZTQX37CGhAZm5ahQsenkWFGGiNg",
+      "enabled": true
+    },
+    {
+      "key": "uploadFilePath",
+      "value": "EOB Part C English (2).docx",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2025-07-07T10:00:00.000Z",
+  "_postman_exported_using": "Postman/10.24.0"
+}

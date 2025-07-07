@@ -1,0 +1,1358 @@
+{
+	"info": {
+		"_postman_id": "7fe764be-505f-4d90-b9c0-225bd7874612",
+		"name": "Correspondence Autonomize  Copilot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29297603"
+	},
+	"item": [
+		{
+			"name": "LetterType",
+			"item": [
+				{
+					"name": "Get all letter types",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    console.log(\"✅ Status Code:\", pm.response.code);\r",
+									"});\r",
+									"\r",
+									"let rawBody = pm.response.text();\r",
+									"console.log(\"🧾 Raw response body:\", rawBody);\r",
+									"\r",
+									"if (rawBody.startsWith(\"{\") || rawBody.startsWith(\"[\")) {\r",
+									"    try {\r",
+									"        let jsonData = JSON.parse(rawBody);\r",
+									"        console.log(\"✅ Parsed JSON:\", jsonData);\r",
+									"\r",
+									"        if (jsonData.data && Array.isArray(jsonData.data)) {\r",
+									"            let total = jsonData.data.length;\r",
+									"            console.log(\"📝 All the letter type total is\", total);\r",
+									"\r",
+									"            pm.test(\"Letter type count is greater than 0\", function () {\r",
+									"                pm.expect(total).to.be.above(0);\r",
+									"            });\r",
+									"\r",
+									"            if (total > 0) {\r",
+									"                console.log(\"📄 First letter type ID:\", jsonData.data[0].id);\r",
+									"            }\r",
+									"        } else {\r",
+									"            console.warn(\"⚠️ 'data' array not found or not an array\");\r",
+									"            pm.test(\"'data' array exists\", function () {\r",
+									"                pm.expect.fail(\"Missing or invalid 'data' array.\");\r",
+									"            });\r",
+									"        }\r",
+									"\r",
+									"    } catch (error) {\r",
+									"        console.error(\"❌ Error parsing JSON:\", error);\r",
+									"        pm.test(\"Response is valid JSON\", function () {\r",
+									"            pm.expect.fail(\"Response not valid JSON.\");\r",
+									"        });\r",
+									"    }\r",
+									"} else {\r",
+									"    console.error(\"❌ Response body is not JSON.\");\r",
+									"    pm.test(\"Response format\", function () {\r",
+									"        pm.expect.fail(\"Response is not JSON format.\");\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/letter-type?page=1&pageSize=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"letter-type"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all lobs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    console.log(\"✅ Status Code:\", pm.response.code);\r",
+									"});\r",
+									"\r",
+									"let rawBody = pm.response.text();\r",
+									"console.log(\"🧾 Raw response body:\", rawBody);\r",
+									"\r",
+									"if (rawBody.startsWith(\"{\") || rawBody.startsWith(\"[\")) {\r",
+									"    try {\r",
+									"        let jsonData = JSON.parse(rawBody);\r",
+									"        console.log(\"✅ Parsed JSON:\", jsonData);\r",
+									"\r",
+									"        if (jsonData.data && Array.isArray(jsonData.data)) {\r",
+									"            let total = jsonData.data.length;\r",
+									"            console.log(\"📝 Total LOBs returned:\", total);\r",
+									"\r",
+									"            pm.test(\"LOB count is greater than 0\", function () {\r",
+									"                pm.expect(total).to.be.above(0);\r",
+									"            });\r",
+									"\r",
+									"            if (total > 0) {\r",
+									"                console.log(\"🔹 First LOB name:\", jsonData.data[0].name || \"No name field\");\r",
+									"            }\r",
+									"        } else {\r",
+									"            console.warn(\"⚠️ 'data' array not found or not an array\");\r",
+									"            pm.test(\"'data' array exists\", function () {\r",
+									"                pm.expect.fail(\"Missing or invalid 'data' array.\");\r",
+									"            });\r",
+									"        }\r",
+									"\r",
+									"    } catch (error) {\r",
+									"        console.error(\"❌ JSON parsing failed:\", error);\r",
+									"        pm.test(\"Response is valid JSON\", function () {\r",
+									"            pm.expect.fail(\"Invalid JSON response.\");\r",
+									"        });\r",
+									"    }\r",
+									"} else {\r",
+									"    console.error(\"❌ Response body is not JSON.\");\r",
+									"    pm.test(\"Response format\", function () {\r",
+									"        pm.expect.fail(\"Response body is not JSON format.\");\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "{{grant_type}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{clientId}}",
+									"type": "text"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}}/copilot/{{copilotId}}tId}/cac/letter-type/lob",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}}",
+								"copilot",
+								"{{copilotId}}tId}",
+								"cac",
+								"letter-type",
+								"lob"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a letter type by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    console.log(\"✅ Status Code:\", pm.response.code);\r",
+									"});\r",
+									"\r",
+									"// Get raw body\r",
+									"let rawBody = pm.response.text();\r",
+									"console.log(\"🧾 Raw response body:\", rawBody);\r",
+									"\r",
+									"if (rawBody.startsWith(\"{\")) {\r",
+									"    try {\r",
+									"        let jsonData = JSON.parse(rawBody);\r",
+									"        console.log(\"✅ Parsed JSON:\", jsonData);\r",
+									"\r",
+									"        // Check if 'data' exists and is an object\r",
+									"        if (jsonData.data && typeof jsonData.data === 'object') {\r",
+									"            const letterType = jsonData.data;\r",
+									"\r",
+									"            // Log key details\r",
+									"            console.log(\"🔤 Letter Type ID:\", letterType.id || \"N/A\");\r",
+									"            console.log(\"📄 Letter Type Name:\", letterType.name || \"N/A\");\r",
+									"\r",
+									"            // Sample field validations\r",
+									"            pm.test(\"Letter type has an ID\", function () {\r",
+									"                pm.expect(letterType.id).to.not.be.undefined;\r",
+									"            });\r",
+									"\r",
+									"            pm.test(\"Letter type has a name\", function () {\r",
+									"                pm.expect(letterType.name).to.be.a('string').and.not.be.empty;\r",
+									"            });\r",
+									"\r",
+									"        } else {\r",
+									"            console.warn(\"⚠️ 'data' object not found in response.\");\r",
+									"            pm.test(\"'data' object exists\", function () {\r",
+									"                pm.expect.fail(\"Missing or invalid 'data' object.\");\r",
+									"            });\r",
+									"        }\r",
+									"\r",
+									"    } catch (error) {\r",
+									"        console.error(\"❌ Error parsing JSON:\", error);\r",
+									"        pm.test(\"Response is valid JSON\", function () {\r",
+									"            pm.expect.fail(\"Response is not valid JSON.\");\r",
+									"        });\r",
+									"    }\r",
+									"} else {\r",
+									"    console.error(\"❌ Response is not JSON.\");\r",
+									"    pm.test(\"Response format\", function () {\r",
+									"        pm.expect.fail(\"Response is not JSON.\");\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "{{grant_type}}",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "{{clientId}}",
+									"type": "text"
+								},
+								{
+									"key": "redirect_uri",
+									"value": "{{redirect_uri}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}}/copilot/{{copilotId}}tId}/cac/letter-type/{{letterTypeId}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}}",
+								"copilot",
+								"{{copilotId}}tId}",
+								"cac",
+								"letter-type",
+								"{{letterTypeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LetterTypeUpload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check if the response has data\r",
+									"if (pm.response.code === 200) {\r",
+									"    let responseData = pm.response.json();\r",
+									"\r",
+									"    if (responseData.data && responseData.data.length > 0) {\r",
+									"        let firstItem = responseData.data[0];\r",
+									"\r",
+									"        // Set values into environment variables for reuse\r",
+									"        pm.environment.set(\"letterTypeId\", firstItem.id);\r",
+									"        pm.environment.set(\"letterTypeName\", firstItem.name);\r",
+									"        pm.environment.set(\"processedDocxPath\", firstItem.processedDocxPath);\r",
+									"\r",
+									"        console.log(\"Saved letterTypeId:\", firstItem.id);\r",
+									"    } else {\r",
+									"        console.warn(\"Response 'data' array is empty.\");\r",
+									"    }\r",
+									"} else {\r",
+									"    console.error(\"Response code is not 200:\", pm.response.code);\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Response status code is 500\", function () {\r",
+									"    pm.expect(pm.response.code).to.eql(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has a valid JSON format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.all.keys('statusCode', 'message');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains statusCode and message fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.all.keys('statusCode', 'message');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response contains statusCode as a number and message as a string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.statusCode).to.be.a('number');\r",
+									"    pm.expect(responseData.message).to.be.a('string');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/sbhatt/Documents/PostmanUploads/EOB Part C English (2).docx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/letter-type/upload",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"letter-type",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ConstructPDF",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check if the response has data\r",
+									"if (pm.response.code === 200) {\r",
+									"    let responseData = pm.response.json();\r",
+									"\r",
+									"    if (responseData.data && responseData.data.length > 0) {\r",
+									"        let firstItem = responseData.data[0];\r",
+									"\r",
+									"        // Set values into environment variables for reuse\r",
+									"        pm.environment.set(\"letterTypeId\", firstItem.id);\r",
+									"        pm.environment.set(\"letterTypeName\", firstItem.name);\r",
+									"        pm.environment.set(\"processedDocxPath\", firstItem.processedDocxPath);\r",
+									"\r",
+									"        console.log(\"Saved letterTypeId:\", firstItem.id);\r",
+									"    } else {\r",
+									"        console.warn(\"Response 'data' array is empty.\");\r",
+									"    }\r",
+									"} else {\r",
+									"    console.error(\"Response code is not 200:\", pm.response.code);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "File",
+									"type": "file",
+									"src": "/C:/Users/sbhatt/Desktop/Correspondence Automation Copilo/LetterTypes/MHNY CHP Denial Determination.docx"
+								}
+							]
+						},
+						"url": {
+							"raw": "/api/v1/client/{{clientId}}/copilot/{copilotId}/cac/letter-type/construct-pdf",
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{copilotId}",
+								"cac",
+								"letter-type",
+								"construct-pdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Construct-Docx",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Check if the response has data\r",
+									"if (pm.response.code === 200) {\r",
+									"    let responseData = pm.response.json();\r",
+									"\r",
+									"    if (responseData.data && responseData.data.length > 0) {\r",
+									"        let firstItem = responseData.data[0];\r",
+									"\r",
+									"        // Set values into environment variables for reuse\r",
+									"        pm.environment.set(\"letterTypeId\", firstItem.id);\r",
+									"        pm.environment.set(\"letterTypeName\", firstItem.name);\r",
+									"        pm.environment.set(\"processedDocxPath\", firstItem.processedDocxPath);\r",
+									"\r",
+									"        console.log(\"Saved letterTypeId:\", firstItem.id);\r",
+									"    } else {\r",
+									"        console.warn(\"Response 'data' array is empty.\");\r",
+									"    }\r",
+									"} else {\r",
+									"    console.error(\"Response code is not 200:\", pm.response.code);\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "File",
+									"type": "file",
+									"src": "/C:/Users/sbhatt/Desktop/Correspondence Automation Copilo/LetterTypes/UT IDN DSNP Select SFH es_Mem.docx"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{clientId}/copilot/{{copilotId}}/cac/letter-type/construct-docx",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{clientId}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"letter-type",
+								"construct-docx"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PlaceHolder",
+			"item": [
+				{
+					"name": "Get All placeholder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/placeholder",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"placeholder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New placeholder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"InvoicPlaceholder\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/placeholder",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"placeholder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a placeholder by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/placeholder/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"placeholder",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Placeholder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Update Placeholder\",\r\n  \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/placeholder/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"placeholder",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Placeholder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"isActive\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/placeholder/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"placeholder",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Letter",
+			"item": [
+				{
+					"name": "Generate letter",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/sbhatt/Desktop/Correspondence Automation Copilo/MaskedMergeDataXML/MaskedMergeDataXML/UNV/Master Approval Ltr_fe9dc3fb-aefb-4215-974b-7c7c02a5b931.xml"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/letter/generate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"letter",
+								"generate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download Docx",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"InvoicPlaceholder\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/letter/download-docx",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"letter",
+								"download-docx"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Download-Pdf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/letter/download-pdf",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"letter",
+								"download-pdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a Letter by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Update Placeholder\",\r\n  \"isActive\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/placeholder/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"placeholder",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Filtered letters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/letter",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"letter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Letter Type Version",
+			"item": [
+				{
+					"name": "Get all Letter types Versions",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/v1/client/{{clientId}}/copilot/{{copilotId}}/cac/letter-type-version",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"client",
+								"{{clientId}}",
+								"copilot",
+								"{{copilotId}}",
+								"cac",
+								"letter-type-version"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "clientId",
+			"value": "0",
+			"type": "string"
+		},
+		{
+			"key": "copilotId",
+			"value": "683554429fe9ea57eec4ed1e",
+			"type": "string"
+		},
+		{
+			"key": "base_url",
+			"value": "https://api-correspondence.sprint.autonomize.dev",
+			"type": "string"
+		},
+		{
+			"key": "grant_type",
+			"value": "authorization_code",
+			"type": "string"
+		},
+		{
+			"key": "redirect_uri",
+			"value": "https://genesis.dev-v2.platform.autonomize.dev/genesis-platform/frontend/",
+			"type": "string"
+		}
+	]
+}
