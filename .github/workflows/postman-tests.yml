@@ -1,31 +1,25 @@
 name: Run Postman Tests
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual run from GitHub UI
 
 jobs:
-  postman-tests:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install Newman and HTML reporter
+      - name: Install Newman
         run: npm install -g newman newman-reporter-html
 
-      - name: Run Postman tests
+      - name: Run Postman Collection
         run: |
-          newman run upload-test.postman_collection.json \
-            --environment correspondence-env.json \
-            --iteration-data upload-data.csv \
-            --reporters cli,html \
-            --reporter-html-export report.html
+          npx newman run upload-test.postman_collection.json \
+          -e correspondence-env.json \
+          -d upload-data.csv \
+          -r html --reporter-html-export report.html
 
       - name: Upload HTML report
         uses: actions/upload-artifact@v4
