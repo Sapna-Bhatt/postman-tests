@@ -2,18 +2,16 @@ name: Run Postman Tests
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
 
 jobs:
-  run-postman:
+  postman-tests:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
@@ -21,7 +19,7 @@ jobs:
       - name: Install Newman and HTML reporter
         run: npm install -g newman newman-reporter-html
 
-      - name: Run Postman collection and generate report
+      - name: Run Postman tests
         run: |
           newman run upload-test.postman_collection.json \
             --environment correspondence-env.json \
@@ -29,8 +27,8 @@ jobs:
             --reporters cli,html \
             --reporter-html-export report.html
 
-      - name: Upload HTML report as artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
         with:
           name: postman-html-report
           path: report.html
